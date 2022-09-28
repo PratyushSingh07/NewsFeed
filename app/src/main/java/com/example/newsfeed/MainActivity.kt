@@ -12,5 +12,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         recyclerView.layoutManager=LinearLayoutManager(this)//shows ki vertical form mai list show hoga
+        val list=fetchData()
+        val adapter:NewsAdapter= NewsAdapter(list)
+        recyclerView.adapter=adapter//recycler view k saath adapter attach ho gaya hai
+    }
+    private fun fetchData():ArrayList<String>{
+        var list=ArrayList<String>()
+        for(i in 0 until 100)list.add("item $i")
+        return list
     }
 }
