@@ -41,9 +41,11 @@ class MainActivity : AppCompatActivity() {
             },
             {
 
-            })
-
-
+            }
+        )
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
+    }
+    fun onItemClicked(item:NewsData){
+
     }
 }
