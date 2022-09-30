@@ -2,7 +2,6 @@ package com.example.newsfeed
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
@@ -23,35 +22,27 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter=adapter//recycler view k saath adapter attach ho gaya hai
     }
     private fun fetchData(){// fetch news from the api
-        val url:String="https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=929449b69a9e4f6ba3940b01105edb68"
+        val url:String="https://newsdata.io/api/1/news?apikey=pub_11801064179dcda1c1b71fbd4ef66f66bf793&q=India"
         val jsonObjectRequest=JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener{
-                val newJsonArray=it.getJSONArray("article")//json obj m article ko target krega
+                val newJsonArray=it.getJSONArray("results")//json obj m article ko target krega
                 val newArray=ArrayList<NewsData>()
                 for(i in 0 until newJsonArray.length()){
                     val newJsonObject=newJsonArray.getJSONObject(i);//article k under trav krega
                     val news=NewsData(
                         newJsonObject.getString("title"),
-                        newJsonObject.getString("author"),
-                        newJsonObject.getString("url"),
-                        newJsonObject.getString("urlToImage")
+                        newJsonObject.getString("creator"),
+                        newJsonObject.getString("link"),
+                        newJsonObject.getString("image_url")
                     )
                     newArray.add(news);
                 }
-                adapter.updateNews(newArray)
+                adapter.updateNews(newArray)//ye q hai?
             },
-            { _ ->
+            {
 
             })
 
-
-            @Throws(AuthFailureError::class)
-              fun getHeaders(): Map<String, String>? {
-                val headers = HashMap<String, String>()
-                //headers.put("Content-Type", "application/json");
-                headers["key"] = "Value"
-                return headers
-            }
 
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
     }
