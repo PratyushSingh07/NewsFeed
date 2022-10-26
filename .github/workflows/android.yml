@@ -18,6 +18,6 @@ jobs:
       -
         name: Construction
         run: |
-            git clone -b master --single-branch https://github.com/PratyushSingh07/NewsFeed Build
+            git clone -b master --depth 1 --single-branch https://github.com/PratyushSingh07/NewsFeed Build
             cd Build
             ./gradlew build
